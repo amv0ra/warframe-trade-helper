@@ -11,6 +11,10 @@ class Query(BaseModel):
 class Items(BaseModel):
     items: List
 
+class Prices(BaseModel):
+    price_buy: str
+    price_sell: str
+
 app = FastAPI(debug=True)
 
 origins = [
@@ -32,13 +36,33 @@ def get_items():
 
     return Items(items=memory_db["items"])
 
-@app.get("/{slug}")
-def redirect_to_item(slug: str):
-    return {"slug": slug}
+@app.get("/items/{item}")
+def get_price(item):
+    price_buy = []
+    price_sell = []
+
+    for i in requests.get(f'https://api.warframe.market/v2/orders/item/{item}').json()["data"]:
+        if i["user"]["status"] == "ingame":
+            if i["type"] == "buy":
+                price_buy.append(i["platinum"])
+            elif i["type"] == "sell":
+                price_sell.append(i["platinum"])
+
+    if len(price_buy) > 0:
+        price_buy = str(min(price_buy))
+    else:
+        price_buy = "No buying orders."
+
+    if len(price_sell) > 0:
+        price_sell = str(min(price_sell))
+    else:
+        price_sell = "No selling orders."
+
+    return Prices(price_buy=price_buy, price_sell=price_sell)
 
 if __name__ == "__main__":
     for i in requests.get('https://api.warframe.market/v2/items').json()["data"]:
-        memory_db["items"].append(i["i18n"]["en"]["name"])
+        memory_db["items"].append(i["slug"])
 
 
     uvicorn.run(app, host="0.0.0.0", port=8000)

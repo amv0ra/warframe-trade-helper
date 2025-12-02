@@ -16,7 +16,7 @@ const Header = () => {
                     <nav className="menu">
                         <ul className="menu__list">
                             <li className="menu__item">
-                                <a href="#" className="menu__item-link">main</a>
+                                <a href="/" className="menu__item-link">main</a>
                             </li>
                             <li className="menu__item">
                                 <a href="#" className="menu__item-link">most profitable</a>

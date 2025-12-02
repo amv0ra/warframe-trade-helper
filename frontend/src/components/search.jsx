@@ -1,6 +1,7 @@
 import React, {useRef, useEffect, createElement, useState} from "react";
 import '../App.css';
-import search_item from "./helpers";
+import search_item from "./search_item_func";
+import { Route } from "react-router";
 
 const Search = () => {
 
@@ -47,7 +48,7 @@ const Search = () => {
                 <ul className="menu__item-search-result">
                     {links.map((url, i) => (
                         <li key={i}>
-                            <a href={url.toLowerCase().split(' ').join('-')} className="menu__item-search-result-item-link">
+                            <a href={url} className="menu__item-search-result-item-link">
                                 {url}
                             </a>
                         </li>

@@ -4,6 +4,7 @@ import api from '../api.js';
 var items;
 fetch_items().then(function(result) {
     items = result.data.items;
+
 });
 
 async function fetch_items() {
@@ -13,11 +14,9 @@ async function fetch_items() {
 
     }   catch (error) {
         console.error("Error fetching items", error);
-    }
+    };
 
 };
-
-
 
 function search_item(key) {
     var result = [];
@@ -30,7 +29,7 @@ function search_item(key) {
         if (result.length > 5) {
             break
         }
-    }
+    };
     return result;
 };
 
