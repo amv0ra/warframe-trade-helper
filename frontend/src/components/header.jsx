@@ -19,7 +19,7 @@ const Header = () => {
                                 <a href="/" className="menu__item-link">main</a>
                             </li>
                             <li className="menu__item">
-                                <a href="#" className="menu__item-link">most profitable</a>
+                                <a href="/profitable" className="menu__item-link">most profitable</a>
                             </li>
                             <Search />
                         </ul>

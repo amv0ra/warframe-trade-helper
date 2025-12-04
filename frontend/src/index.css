@@ -54,6 +54,7 @@
 .no-tracked-items {
   font-size: 20px;
   padding: 0 40px;
+  flex-wrap: wrap;
 }
 
 .tracked__list {
@@ -73,10 +74,27 @@
   border-width: 1px;
 }
 
+.tracked__set-item-name {
+  font-weight: 700;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.tracked__item-name {
+  font-weight: 700;
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.87);
+  transform: translateX(10px);
+}
+
+.potential__profit {
+  font-size: 18px;
+  font-weight: 700;
+}
+
 .tracked__item-top {
   
   display: flex;
-  align-items: center;
   justify-content: center;
   gap: 10px;
   padding: 10px 0;
@@ -86,10 +104,24 @@
   padding: 0;
 }
 
+.tracked__item-delete {
+  position: sticky;
+  transform: translateX(50px);
+}
+
+.tracked__set-items {
+  padding: 0;
+}
+
 
 .item__inner {
   display: flex;
   gap: 0 40px;
+}
+
+.item__price {
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .item__inner-track-item-btn {

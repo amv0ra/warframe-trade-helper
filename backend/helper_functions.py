@@ -1,7 +1,7 @@
 import requests
 
 def fetch_price(item):
-    result = {"price_buy": [], "price_sell": []}
+    result = {"price_buy": [], "price_sell": [], "items_in_set": []}
 
     for i in requests.get(f'https://api.warframe.market/v2/orders/item/{item}').json()["data"]:
         if i["user"]["status"] == "ingame":
@@ -20,6 +20,12 @@ def fetch_price(item):
     else:
         result["price_sell"] = "No selling orders."
 
+    if "set" in requests.get(f'https://api.warframe.market/v2/item/{item}').json()["data"]["tags"]:
+        items_in_set = []
+        for v in requests.get(f'https://api.warframe.market/v2/item/{item}/set').json()["data"]["items"]:
+            if v["slug"] != item:
+                items_in_set.append({v["slug"]: fetch_price(v["slug"])})
+        result["items_in_set"] = items_in_set
 
     
     return result

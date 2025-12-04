@@ -1,5 +1,5 @@
 import React from 'react';
-import api from '../api.js';
+import api from '../../api.js';
 
 var items;
 fetch_items().then(function(result) {

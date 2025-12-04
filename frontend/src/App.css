@@ -10,6 +10,12 @@
 
 a {
   text-decoration: none;
+  transition-duration: 100ms;
+  transition-timing-function: linear;
+}
+
+a:hover {
+  color:lightslategrey
 }
 
 body {
@@ -38,5 +44,9 @@ input {
 }
 
 ul {
+  list-style: none;
+}
+
+li {
   list-style: none;
 }

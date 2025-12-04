@@ -1,7 +1,6 @@
 import React, {useRef, useEffect, createElement, useState} from "react";
 import '../App.css';
-import search_item from "./search_item_func";
-import { Route } from "react-router";
+import search_item from "./functions/search_item_func";
 
 const Search = () => {
 

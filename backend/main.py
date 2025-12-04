@@ -6,7 +6,6 @@ from pydantic import BaseModel
 from typing import List
 import helper_functions
 
-
 class Query(BaseModel):
     value: str
 
@@ -16,6 +15,7 @@ class Items(BaseModel):
 class Prices(BaseModel):
     price_buy: str
     price_sell: str
+    items_in_set: List
 
 app = FastAPI(debug=True)
 
@@ -43,7 +43,7 @@ def get_items():
 def get_price(item):
     result = helper_functions.fetch_price(item)
 
-    return Prices(price_buy=result["price_buy"], price_sell=result["price_sell"])
+    return Prices(price_buy=result["price_buy"], price_sell=result["price_sell"], items_in_set=result["items_in_set"])
 
 @app.get("/tracking")
 def get_tracked_items():
@@ -63,6 +63,7 @@ def add_tracked_item(item):
 def delete_tracked_item(item):
     if item in memory_tracked["tracked"]:
         memory_tracked["tracked"].remove(item)
+
 
 if __name__ == "__main__":
     for i in requests.get('https://api.warframe.market/v2/items').json()["data"]:

@@ -1,9 +1,8 @@
 import React, { useEffect, useState, Activity } from 'react';
 import './App.css';
-import closesvg from './assets/close.svg';
 import Header from './components/header.jsx';
 import api from './api.js';
-import fetch_item_price from './components/fetch_item_price_func.jsx';
+import TrackedItem from './components/tracked_item.jsx';
 
 async function get_tracked_items() {
   try {
@@ -14,60 +13,7 @@ async function get_tracked_items() {
   };
 };
 
-function stop_tracking_item(item) {
-  try {
-    api.post(`/tracking/delete/${item}`)
-  } catch (error) {
-    console.log("Error deleting tracked item", error);
-  };
-};
 
-
-class TrackedItem extends React.Component {
-  
-  state = {
-    show: true,
-  };
-
-  handleClose = () => {
-    this.setState({
-      show: false,
-    });
-    stop_tracking_item(this.props.name);
-  };
-
-  render() {
-    return (
-      <Activity mode={this.state.show ? "visible" : "hidden"}>
-        <div className="tracked__item__box">
-          <ul className="tracked__item-top">
-            <li className="tracked__item-name">
-              {this.props.name}
-            </li>
-            <li className="tracked__item-delete">
-              <button onClick={this.handleClose}>
-                <img src={closesvg}/>
-              </button>
-            </li>
-          </ul>
-          <ul className="tracked__item-main">
-            <li className="tracked__item-price">
-              <p>
-                minimum buying price: {this.props.price_buy}
-              </p>
-              <p>
-                minimum selling price: {this.props.price_sell}
-              </p>
-              <p>
-                potential profit: {parseInt(this.props.price_buy) - parseInt(this.props.price_sell)}
-              </p>
-            </li>
-          </ul>
-        </div>
-      </Activity>
-    );
-  }
-}
 
 const App = () => {
 
@@ -83,12 +29,14 @@ const App = () => {
       <main className='main'>
         <section className="tracked-items">
           <div className="container">
-            <p className='no-tracked-items'>tracked items will appear here</p>
+            {trackedItems.length == 0 ?
+              <p className='no-tracked-items'>tracked items will appear here</p>  
+            : null}
             <ul className="tracked__list">
               {trackedItems.map((item, i) => (
                 <li key={i} className="tracked__item">
                   <TrackedItem name={Object.keys(item)[0]} price_buy={Object.values(item)[0]["price_buy"]}
-                     price_sell={Object.values(item)[0]["price_sell"]}/>
+                     price_sell={Object.values(item)[0]["price_sell"]} set_items={Object.values(item)[0]["items_in_set"]}/>
                 </li>
               ))}
             </ul>
