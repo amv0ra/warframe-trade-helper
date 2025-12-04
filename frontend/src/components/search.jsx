@@ -6,8 +6,8 @@ import { Route } from "react-router";
 const Search = () => {
 
     const [query, setQuery] = useState("");
-    const [links, setLinks] = React.useState([]);
-    const [showResults, setShowResults] = React.useState(false);
+    const [links, setLinks] = useState([]);
+    const [showResults, setShowResults] = useState(false);
 
     const hide_results = (event) => {
         if (event.relatedTarget == null) {

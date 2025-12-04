@@ -4,6 +4,8 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List
+import helper_functions
+
 
 class Query(BaseModel):
     value: str
@@ -29,40 +31,41 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-memory_db = {"items": []}
+memory_items = {"items": []}
+memory_tracked = {"tracked": []}
 
 @app.get("/items")
 def get_items():
 
-    return Items(items=memory_db["items"])
+    return Items(items=memory_items["items"])
 
 @app.get("/items/{item}")
 def get_price(item):
-    price_buy = []
-    price_sell = []
+    result = helper_functions.fetch_price(item)
 
-    for i in requests.get(f'https://api.warframe.market/v2/orders/item/{item}').json()["data"]:
-        if i["user"]["status"] == "ingame":
-            if i["type"] == "buy":
-                price_buy.append(i["platinum"])
-            elif i["type"] == "sell":
-                price_sell.append(i["platinum"])
+    return Prices(price_buy=result["price_buy"], price_sell=result["price_sell"])
 
-    if len(price_buy) > 0:
-        price_buy = str(min(price_buy))
-    else:
-        price_buy = "No buying orders."
+@app.get("/tracking")
+def get_tracked_items():
+    tracked = []
+    for item in memory_tracked["tracked"]:
 
-    if len(price_sell) > 0:
-        price_sell = str(min(price_sell))
-    else:
-        price_sell = "No selling orders."
+        tracked.append({item: helper_functions.fetch_price(item)})
 
-    return Prices(price_buy=price_buy, price_sell=price_sell)
+    return Items(items=tracked)
+
+@app.post("/tracking/{item}")
+def add_tracked_item(item):
+    if item not in memory_tracked["tracked"]:
+        memory_tracked["tracked"].append(item)
+
+@app.post("/tracking/delete/{item}")
+def delete_tracked_item(item):
+    if item in memory_tracked["tracked"]:
+        memory_tracked["tracked"].remove(item)
 
 if __name__ == "__main__":
     for i in requests.get('https://api.warframe.market/v2/items').json()["data"]:
-        memory_db["items"].append(i["slug"])
-
+        memory_items["items"].append(i["slug"])
 
     uvicorn.run(app, host="0.0.0.0", port=8000)
