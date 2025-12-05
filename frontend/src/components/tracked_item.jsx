@@ -1,5 +1,6 @@
 import React, { Activity } from "react";
 import closesvg from "../assets/close.svg"
+import api from "../api";
 
 function stop_tracking_item(item) {
   try {
@@ -33,7 +34,10 @@ export default class TrackedItem extends React.Component {
     stop_tracking_item(this.props.name);
   };
 
+  
+
   render() {
+    console.log(this.props.set_items)
     return (
       <Activity mode={this.state.show ? "visible" : "hidden"}>
         <div className="tracked__item__box">
@@ -61,9 +65,13 @@ export default class TrackedItem extends React.Component {
             </li>
           </ul>
           <ul className="tracked__set-items">
+            {this.props.set_items.length > 0 &&
+            <>
             <hr></hr>
             items in set:
-            {this.props.set_items ?
+            </>
+            }
+            {this.props.set_items.length > 0 &&
               this.props.set_items.map((item, i) => (
                 <li key={i}>
                     <a href={"https://warframe.market/items/" + `${Object.keys(item)[0]}`} target="_blank" className="tracked__set-item-name">
@@ -71,16 +79,19 @@ export default class TrackedItem extends React.Component {
                     </a>
                     <p className="item__price">
                         minimum sell price: {Object.values(item)[0].price_sell}
-                    </p>   
+                    </p>
                 </li>
               ))
-            : null}
+            }
+            {this.props.set_items.length > 0 &&
             <>
               <hr></hr>
               <p className="potential__profit">
                 potential profit: {parseInt(this.props.price_sell) - t(this.props.set_items)}
               </p>
             </>
+            }
+            
           </ul>
         </div>
       </Activity>

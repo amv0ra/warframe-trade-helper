@@ -4,7 +4,6 @@ import api from '../../api.js';
 var items;
 fetch_items().then(function(result) {
     items = result.data.items;
-
 });
 
 async function fetch_items() {
@@ -18,7 +17,7 @@ async function fetch_items() {
 
 };
 
-function search_item(key) {
+async function search_item(key) {
     var result = [];
     for (let item of items) {
         

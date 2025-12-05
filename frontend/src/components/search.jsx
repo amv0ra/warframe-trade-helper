@@ -21,9 +21,10 @@ const Search = () => {
             return;
         }
 
-        const results = search_item(query).slice(0, 5);
-        setLinks(results);
-        setShowResults(true);
+        search_item(query).then((results) => {
+            setLinks(results.slice(0, 5));
+            setShowResults(true);
+        })
     }, [query]);
 
     return (
@@ -36,7 +37,7 @@ const Search = () => {
                         onChange={(e) => {setQuery(e.target.value),setShowResults(true)}}
                         onFocus={() => query && setShowResults(true)}
                         onBlur={(e) => hide_results(e)}
-                        placeholder="Search"
+                        placeholder="search"
                         />
                     </div>
                 </div>

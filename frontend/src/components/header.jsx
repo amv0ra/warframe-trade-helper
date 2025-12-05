@@ -11,7 +11,7 @@ const Header = () => {
             <div className="container">
                 <div className="header__top">
                     <h1>
-                        warframe-trade-helper rehaul
+                        warframe-trade-helper
                     </h1>
                     <nav className="menu">
                         <ul className="menu__list">
@@ -19,7 +19,7 @@ const Header = () => {
                                 <a href="/" className="menu__item-link">main</a>
                             </li>
                             <li className="menu__item">
-                                <a href="/profitable" className="menu__item-link">most profitable</a>
+                                <a href="/profitable" className="menu__item-link">most profitable sets</a>
                             </li>
                             <Search />
                         </ul>

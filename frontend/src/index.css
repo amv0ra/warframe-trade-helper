@@ -13,6 +13,11 @@
   margin: 0 auto;
 }
 
+.col {
+  padding: 10px;
+  display: flex;
+}
+
 .header {
   position: relative;
   min-height: 10vh;
@@ -23,6 +28,7 @@
   align-items: center;
   gap: 0 40px;
   font-weight: 700;
+  z-index: 1;
 }
 
 .menu__item-link {
@@ -60,6 +66,7 @@
 .tracked__list {
   display: flex;
   flex-wrap: wrap;
+  z-index: -1;
 }
 
 .tracked__item__box {
@@ -84,7 +91,7 @@
   font-weight: 700;
   font-size: 20px;
   color: rgba(255, 255, 255, 0.87);
-  transform: translateX(10px);
+
 }
 
 .potential__profit {
@@ -102,11 +109,6 @@
 
 .tracked__item-main {
   padding: 0;
-}
-
-.tracked__item-delete {
-  position: sticky;
-  transform: translateX(50px);
 }
 
 .tracked__set-items {
@@ -128,5 +130,12 @@
   padding: 16px 20px;
   border-radius: 8px;
   color: rgba(255, 255, 255, 0.87);
+  background-color: #161616;
+
+}
+
+.quantity__input {
+  padding: 16px 20px;
+  border-radius: 8px;
   background-color: #161616;
 }

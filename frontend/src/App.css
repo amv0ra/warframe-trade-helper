@@ -27,11 +27,17 @@ body {
   line-height: 1.2;
 }
 
+button:hover {
+  color:lightslategrey
+}
+
 button {
   padding: 0;
   border: none;
   background-color: transparent;
   cursor: pointer;
+  transition-duration: 100ms;
+  transition-timing-function: linear;
 }
 
 input {
