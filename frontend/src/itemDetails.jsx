@@ -71,7 +71,7 @@ const ItemDetails = () => {
                                     <h3 className="item__name">
                                         {itemPrice.items_in_set.map((item, i) => (
                                             <li key={i}>
-                                                {Object.keys(item)[0]}  
+                                                <a href={"https://warframe.market/items/" + `${Object.keys(item)[0]}`} target="_blank" className="tracked__set-item-name">{Object.keys(item)[0]} </a> 
                                                 <p className="item__price">
                                                     minimum sell price: {Object.values(item)[0].price_sell}
                                                 </p>   
