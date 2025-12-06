@@ -53,7 +53,7 @@ def fetch_price(item):
 def scrub_most_profitable(items, primeOnly=False, amountToShow=0, limitTo=0):
     most_profitable = []
     for item in items:
-        if limitTo >= 0:
+        if limitTo > 0:
             if len(most_profitable) == limitTo:
                 break
 

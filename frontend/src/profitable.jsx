@@ -48,7 +48,7 @@ const Profitable = () => {
 
                     <ul>
                         {showInfo ? 
-                            <p>calculating 10 most profitable sets to resell... it will take some time</p>
+                            <p>calculating {quantity} most profitable sets to resell... it will take some time</p>
                         : 
                         <>
                             <li className="col">
